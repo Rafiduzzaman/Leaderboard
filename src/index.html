@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Leaderboard</title>
 </head>
+
 <body>
-    
+
+    <div class="container">
+        <h1>Leaderboard</h1>
+        <div class="tables">
+            <div class="col1">
+                <div class="title">
+                    <h2>Recent Scores</h2>
+                    <button id="refreshButton" type="button">Refresh</button>
+                </div>
+                <div id="scoreboard"></div>
+            </div>
+
+            <div class="input-section">
+                <h2>Add your score</h2>
+                <input type="text" id="nameInput" placeholder="Name">
+                <input type="number" id="scoreInput" placeholder="Score">
+                <div class="button-container">
+                    <button id="addButton" type="button">Add Score</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="index.js"></script>
 </body>
+
 </html>
