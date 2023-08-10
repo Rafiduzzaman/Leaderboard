@@ -15,22 +15,28 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
 .tables {
   display: flex;
 }
+
 h1 {
   text-align: left;
 }
+
 .title {
   display: flex;
   align-items: center;
 }
+
 .title h2 {
   margin-right: 10px;
 }
+
 .col1 {
   margin-right: 20px;
 }
+
 button {
   padding: 5px 10px;
   color: black;
@@ -48,30 +54,33 @@ button {
   flex-direction: column;
   justify-content: center;
 }
+
 .input-section > * {
   margin-bottom: 10px;
 }
-.input-section h2 {
+
+#hed {
   padding-bottom: 5px;
 }
+
 input {
   padding: 5px 10px;
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .input-section h2 {
   margin-top: 20px;
 }
+
 #addscore {
- justify-self: flex-end;
+  justify-self: flex-end;
 }
+
 .button-container {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    padding-top: 10px;
-  }
-#refreshButton {
-  height: fit-content;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: 10px;
 }
