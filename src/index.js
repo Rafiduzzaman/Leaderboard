@@ -82,4 +82,7 @@ const submitButton = document.getElementById('addButton');
 refreshButton.addEventListener('click', refreshScoreboard);
 submitButton.addEventListener('click', addScore);
 
-createGame().then(() => refreshScoreboard());
+window.onload = () => {
+  createGame();
+  refreshScoreboard();
+};
