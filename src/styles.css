@@ -50,6 +50,7 @@ button {
   align-items: center;
   border: black 1px solid;
 }
+
 .entry {
   display: flex;
   justify-content: space-between;
@@ -58,10 +59,12 @@ button {
   padding: 5px;
   border: 1px solid #ccc;
 }
+
 .name {
   flex: 1;
   text-align: left;
 }
+
 .score {
   flex: 1;
   text-align: left;

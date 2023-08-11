@@ -1,4 +1,5 @@
 import './styles.css';
+
 const baseURL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';
 let gameID = '';
 
@@ -10,11 +11,12 @@ const createGame = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: 'BasketBall', 
+        name: 'BasketBall',
       }),
     });
     const data = await response.json();
-    gameID = data.result.split(': ')[1];
+    const [, gameIDPart] = data.result.split(': ');
+    gameID = gameIDPart;
     console.log('Game created:', gameID);
   } catch (error) {
     console.error('Error creating game:', error);
@@ -29,7 +31,7 @@ const refreshScoreboard = async () => {
 
     const maxLength = data.result.reduce(
       (max, entry) => Math.max(max, entry.user.length),
-      0
+      0,
     );
 
     scoreboard.innerHTML = data.result
@@ -61,7 +63,7 @@ const addScore = async () => {
         },
         body: JSON.stringify({
           user: name,
-          score: score,
+          score,
         }),
       });
       console.log('Score added:', name, score);
@@ -80,4 +82,4 @@ const submitButton = document.getElementById('addButton');
 refreshButton.addEventListener('click', refreshScoreboard);
 submitButton.addEventListener('click', addScore);
 
-createGame().then(refreshScoreboard);
+createGame().then(() => refreshScoreboard());
