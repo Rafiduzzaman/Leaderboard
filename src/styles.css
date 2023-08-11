@@ -45,7 +45,26 @@ button {
 }
 
 #scoreboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: black 1px solid;
+}
+.entry {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin: 5px 0;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+.name {
+  flex: 1;
+  text-align: left;
+}
+.score {
+  flex: 1;
+  text-align: left;
 }
 
 .input-section {
@@ -76,6 +95,10 @@ input {
 
 #addscore {
   justify-self: flex-end;
+}
+
+.even {
+  background-color: silver;
 }
 
 .button-container {
