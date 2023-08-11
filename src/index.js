@@ -1,42 +1,88 @@
 import './styles.css';
 
-const refreshButton = document.getElementById('refreshButton');
-const addButton = document.getElementById('addButton');
-const scoreboard = document.getElementById('scoreboard');
-const nameInput = document.getElementById('nameInput');
-const scoreInput = document.getElementById('scoreInput');
+const baseURL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api';
+let gameID = '';
 
-// Load scores from local storage or initialize if not found
-const scores = JSON.parse(localStorage.getItem('scores')) || [
-  { name: 'Alice', score: 100 },
-  { name: 'Bob', score: 85 },
-  { name: 'Carol', score: 120 },
-];
+const createGame = async () => {
+  try {
+    const response = await fetch(`${baseURL}/games/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: 'BasketBall',
+      }),
+    });
+    const data = await response.json();
+    const [, gameIDPart] = data.result.split(': ');
+    gameID = gameIDPart;
+    console.log('Game created:', gameID);
+  } catch (error) {
+    console.error('Error creating game:', error);
+  }
+};
 
-function refreshScoreboard() {
-  scoreboard.innerHTML = '';
-  scores.forEach((entry, index) => {
-    const entryDiv = document.createElement('div');
-    entryDiv.innerHTML = `${index + 1}. ${entry.name}: ${entry.score}`;
-    scoreboard.appendChild(entryDiv);
-  });
-}
+const refreshScoreboard = async () => {
+  try {
+    const response = await fetch(`${baseURL}/games/${gameID}/scores/`);
+    const data = await response.json();
+    const scoreboard = document.getElementById('scoreboard');
 
-function addScore() {
+    const maxLength = data.result.reduce(
+      (max, entry) => Math.max(max, entry.user.length),
+      0,
+    );
+
+    scoreboard.innerHTML = data.result
+      .map((entry, index) => {
+        const evenClass = index % 2 !== 0 ? 'even' : '';
+        return `<div class="entry ${evenClass}">
+                  <span class="name">${entry.user.padEnd(maxLength, ' ')}</span>
+                  <span class="separator">:</span>
+                  <span class="score">${entry.score}</span>
+                </div>`;
+      })
+      .join('');
+  } catch (error) {
+    console.error('Error refreshing scoreboard:', error);
+  }
+};
+
+const addScore = async () => {
+  const nameInput = document.getElementById('nameInput');
+  const scoreInput = document.getElementById('scoreInput');
   const name = nameInput.value;
   const score = parseInt(scoreInput.value, 10);
   if (name && !Number.isNaN(score)) {
-    scores.push({ name, score });
-
-    // Save scores to local storage
-    localStorage.setItem('scores', JSON.stringify(scores));
-
-    nameInput.value = '';
-    scoreInput.value = '';
-    refreshScoreboard();
+    try {
+      await fetch(`${baseURL}/games/${gameID}/scores/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: name,
+          score,
+        }),
+      });
+      console.log('Score added:', name, score);
+      nameInput.value = '';
+      scoreInput.value = '';
+      refreshScoreboard();
+    } catch (error) {
+      console.error('Error adding score:', error);
+    }
   }
-}
+};
+
+const refreshButton = document.getElementById('refreshButton');
+const submitButton = document.getElementById('addButton');
+
 refreshButton.addEventListener('click', refreshScoreboard);
-addButton.addEventListener('click', addScore);
-// Initial call to populate the scoreboard on page load
-refreshScoreboard();
+submitButton.addEventListener('click', addScore);
+
+window.onload = () => {
+  createGame();
+  refreshScoreboard();
+};

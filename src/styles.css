@@ -1,3 +1,5 @@
+/* Updated styles.css */
+
 body {
   font-family: "Comic Neue", cursive;
   margin: 0;
@@ -22,6 +24,11 @@ body {
 
 h1 {
   text-align: left;
+  transition: font-size 0.3s ease-in-out;
+}
+
+h1:hover {
+  font-size: 36px; /* Increase font size on hover */
 }
 
 .title {
@@ -37,15 +44,49 @@ h1 {
   margin-right: 20px;
 }
 
+/* Button styles with hover and click animations */
 button {
   padding: 5px 10px;
   color: black;
   border: black 1px solid;
   cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  background-color: black;
+  color: #fff;
 }
 
 #scoreboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border: black 1px solid;
+}
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin: 0 5px;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+}
+
+.name {
+  flex: 1;
+  text-align: left;
+}
+
+.score {
+  flex: 1;
+  text-align: left;
 }
 
 .input-section {
@@ -76,6 +117,11 @@ input {
 
 #addscore {
   justify-self: flex-end;
+}
+
+/* Background color for even entries */
+.even {
+  background-color: silver;
 }
 
 .button-container {
