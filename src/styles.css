@@ -55,8 +55,8 @@ button {
   display: flex;
   justify-content: space-between;
   width: 95%;
-  margin: 0px 5px ;
-  padding: 0px 5px;
+  margin: 0 5px;
+  padding: 0 5px;
   border: 1px solid #ccc;
 }
 
